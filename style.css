@@ -1,0 +1,108 @@
+html, body{
+    --button-min-width: 80px;
+    --button-width: 100px;
+    margin: 0px 0px 0px 0px;
+    height: 100%;
+}
+.screen{
+    width: 50%;
+    max-width: 600px;
+    min-width: 400px;
+    min-height: 100%;
+    margin: 0px auto;
+    border: 2px solid black;
+}
+
+.title{
+    margin: 8px 0px 8px 20px;
+}
+
+.add-button{
+    width: 100px;
+    height: 40px;
+    font-size: 26px;
+    border: 1px solid black;
+    background-color: white;
+    margin: 12px auto 8px auto;
+    border-radius: 20px;
+}
+
+.login-button{
+    width: 100px;
+    height: 40px;
+    font-size: 26px;
+    border: 1px solid black;
+    background-color: white;
+    margin: 12px 8px 8px 4px;
+    border-radius: 20px;
+}
+
+.info{
+    font-size: 20px;
+    font-style: bold;
+    margin: 8px 0px 12px 14px;
+}
+
+.line{
+    margin: 0px 0px 0px 0px;
+}
+
+.top{
+    margin: 0px 0px 10px 0px;
+}
+/** 할 일 목록 */
+.task{
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.checkbox{
+    width: 26px;
+    height:26px;
+    margin: 7px 3px 7px 3px;
+
+    /* position:absolute;
+    top:50%;
+    transform: translate(-50%, -50%); */
+}
+.text{
+    width: 200px;
+    height:35px;
+    /* margin: 0px auto 0px auto; */
+
+    font-family: arial;
+    font-size: 20px;
+    border: 3px black;
+    border-radius: 5px;
+
+    /* position:absolute;
+    top:50%;
+    transform: translate(-50%, -50%); */
+}
+
+/* modify, remove 버튼 */
+.modify, .remove{
+    /* width: 100px; */
+    min-width: 80px;
+    width: auto;
+    max-width: 20vw;
+    height: 38px;
+    /* margin: 0px 5px 0px 5px; */
+
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+
+    /* position:absolute;
+    top:50%;
+    transform: translate(-50%, -50%); */
+}
+
+
+/** 하단부 */
+#last-update{
+    margin: auto auto 50px auto;
+}

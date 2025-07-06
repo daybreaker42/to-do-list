@@ -1,33 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextStyles {
-  static final title1 = TextStyle(
+  static const title1 = TextStyle(
     fontFamily: 'pretendard',
     fontWeight: FontWeight.bold,
-    fontSize: 110.sp,
+    fontSize: 40,
     color: Colors.white,
   );
-  static final title2 = TextStyle(
+  static const title2 = TextStyle(
     fontFamily: 'pretendard',
     fontWeight: FontWeight.bold,
-    fontSize: 77.sp,
+    fontSize: 30,
     color: Colors.white,
   );
-  static final title3 = TextStyle(
+  static const title3 = TextStyle(
     fontFamily: 'pretendard',
     fontWeight: FontWeight.bold,
-    fontSize: 50.sp,
+    fontSize: 20,
     color: Colors.white,
   );
-  static final content1 = TextStyle(
+  static const content1 = TextStyle(
     fontFamily: 'pretendard',
-    fontSize: 70.sp,
+    fontSize: 16,
     color: Colors.white,
   );
-  static final status1 = TextStyle(
+  static const status1 = TextStyle(
     fontFamily: 'pretendard',
-    fontSize: 340.sp,
+    fontSize: 34,
     color: Colors.black,
   );
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:to_do_list/config/theme.dart';
 
 class Task extends StatefulWidget {
@@ -10,7 +9,7 @@ class Task extends StatefulWidget {
   final bool isDueDate;
   final bool isFinished;
 
-  Task({
+  const Task({
     super.key,
     required this.title,
     required this.content,
@@ -36,36 +35,36 @@ class _TaskState extends State<Task> {
   void set_task_status() {
     if (_isStarred! && _isDday!) {
       task_status = Positioned(
-        top: 31.w,
-        right: 33.w,
+        top: 31,
+        right: 33,
         child: Column(children: [
           Image.asset(
             'assets/images/starred.png',
-            width: 33.w,
+            width: 33,
           ),
-          SizedBox(height: 39.w),
+          SizedBox(height: 39),
           Image.asset(
             'assets/images/dday.png',
-            width: 85.w,
+            width: 85,
           ),
         ]),
       );
     } else if (_isStarred!) {
       task_status = Positioned(
-        top: 74.w,
-        right: 59.w,
+        top: 74,
+        right: 59,
         child: Image.asset(
           'assets/images/starred.png',
-          width: 33.w,
+          width: 33,
         ),
       );
     } else if (_isDday!) {
       task_status = Positioned(
-        top: 72.w,
-        right: 33.w,
+        top: 72,
+        right: 33,
         child: Image.asset(
           'assets/images/dday.png',
-          width: 85.w,
+          width: 85,
         ),
       );
     } else {
@@ -90,7 +89,7 @@ class _TaskState extends State<Task> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      SizedBox(height: 46.w),
+      SizedBox(height: 46),
       GestureDetector(
         onDoubleTap: () {
           setState(() {
@@ -103,27 +102,27 @@ class _TaskState extends State<Task> {
         child: Stack(
           children: [
             Container(
-              width: 1085.w,
-              height: 180.w,
+              width: 1085,
+              height: 180,
               decoration: BoxDecoration(
                 color: Color(0xff0A0A0A),
-                borderRadius: BorderRadius.all(Radius.circular(60.w)),
+                borderRadius: BorderRadius.all(Radius.circular(60)),
               ),
               child: Row(
                 children: [
                   SizedBox(
-                    width: 100.w,
+                    width: 100,
                     child: IconButton(
                       onPressed: () {},
                       icon: Image.asset(
                         'assets/images/dots.png',
-                        width: 27.w,
+                        width: 27,
                       ),
                     ),
                   ),
-                  SizedBox(width: 19.w),
+                  SizedBox(width: 19),
                   SizedBox(
-                    width: 110.w,
+                    width: 110,
                     child: IconButton(
                         padding: EdgeInsets.zero,
                         onPressed: () {
@@ -132,7 +131,7 @@ class _TaskState extends State<Task> {
                         icon: Image.asset(
                             'assets/images/not_finished_circle.png')),
                   ),
-                  SizedBox(width: 44.w),
+                  SizedBox(width: 44),
                   Text(
                     _title!,
                     style: TextStyles.content1,

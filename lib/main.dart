@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // file imports
 import 'package:to_do_list/s_home.dart';
@@ -14,23 +13,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(1179, 2556),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      // Use builder only if you need to use library outside ScreenUtilInit context
-      builder: (_, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'First Method',
-          // You can use the library anywhere in the app even in theme
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          ),
-          home: child,
-        );
-      },
-      child: const Home(),
+    return MaterialApp(
+      title: 'To do list',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: const Color(0xff0A0A0A),
+        fontFamily: 'pretendard',
+      ),
+      home: const Home(),
     );
   }
 }

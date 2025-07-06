@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:timer_builder/timer_builder.dart';
 
@@ -29,20 +28,20 @@ class _InfoWidgetState extends State<InfoWidget> {
   @override
   void initState() {
     super.initState();
-    var dt = DateTime.now();
+    // var dt = DateTime.now();
     // date =
-    //     '${dt.year}년 ${dt.month}월 ${dt.day}일 ${weekDayList[dt.weekday - 1]}요일';
+    //     '${dt.year}년 ${dt.month}월 ${dt.day}일 ${weekDayList[dteekday - 1]}요일';
     // currTime = '${dt.hour}:${dt.minute}';
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: 392.w,
-      padding: EdgeInsets.symmetric(vertical: 35.w, horizontal: 96.w),
+      // height: 392,
+      padding: EdgeInsets.symmetric(vertical: 35, horizontal: 96),
       decoration: BoxDecoration(
         border: Border.all(color: Color(0xff0A0A0A), width: 2.0),
-        borderRadius: BorderRadius.all(Radius.circular(60.w)),
+        borderRadius: BorderRadius.all(Radius.circular(60)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

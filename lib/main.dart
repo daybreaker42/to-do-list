@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // file imports
-import 'package:to_do_list/s_home.dart';
+import 'package:to_do_list/config/app_router.dart'; // GoRouter 설정 import
 import 'package:to_do_list/config/theme.dart';
 
 void main() {
@@ -21,8 +21,10 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
+        return MaterialApp.router(
           title: 'To do list',
+          // GoRouter 설정 적용
+          routerConfig: AppRouter.router,
           theme: ThemeData(
             // 새로운 디자인 시스템에 맞는 테마 설정
             primarySwatch: Colors.blue,
@@ -43,7 +45,6 @@ class MyApp extends StatelessWidget {
             // 다크 모드 지원
             brightness: Brightness.dark,
           ),
-          home: const Home(),
           // 디버그 배너 제거
           debugShowCheckedModeBanner: false,
         );

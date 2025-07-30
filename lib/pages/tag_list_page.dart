@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // ScreenUtil 추가
+import 'package:go_router/go_router.dart'; // GoRouter import 추가
 import '../config/theme.dart';
 
 class TagListPage extends StatefulWidget {
@@ -57,12 +59,13 @@ class _TagListPageState extends State<TagListPage> {
       backgroundColor: AppColors.background,
       body: CustomScrollView(
         slivers: [
-          // 헤더 (블러 효과 포함)
+          // 헤더 (AppBar로 통합, 반응형으로 수정)
           SliverAppBar(
-            expandedHeight: 220,
+            expandedHeight: 180.h, // 220 → 180.h로 조정
             floating: false,
             pinned: true,
             backgroundColor: AppColors.background,
+            automaticallyImplyLeading: false, // 기본 뒤로가기 버튼 제거
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
                 decoration: BoxDecoration(
@@ -70,86 +73,84 @@ class _TagListPageState extends State<TagListPage> {
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.25),
-                      blurRadius: 4,
-                      offset: Offset(0, 4),
+                      blurRadius: 4.r, // 반응형으로 수정
+                      offset: Offset(0, 4.h), // 반응형으로 수정
                     ),
                   ],
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 50), // 상태바 공간
-                    Row(
+                child: SafeArea(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24.w), // 반응형 패딩
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // 뒤로가기 버튼
-                        Padding(
-                          padding: EdgeInsets.only(left: 93),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: Icon(
-                              Icons.keyboard_arrow_left,
-                              color: AppColors.highlight,
-                              size: 16,
-                            ),
+                        // 뒤로가기 버튼 (반응형으로 수정)
+                        GestureDetector(
+                          onTap: () {
+                            context.go('/home'); // GoRouter 사용
+                          },
+                          child: Icon(
+                            Icons.keyboard_arrow_left,
+                            color: AppColors.highlight,
+                            size: 24.sp, // 16 → 24.sp로 조정
                           ),
                         ),
                         // 메인 타이틀
                         Text('태그 목록', style: TextStyles.mainTitle),
-                        // 더보기 버튼
-                        Padding(
-                          padding: EdgeInsets.only(right: 93),
-                          child: Icon(
-                            Icons.more_vert,
-                            color: AppColors.highlight,
-                            size: 49,
-                          ),
+                        // 더보기 버튼 (반응형으로 수정)
+                        Icon(
+                          Icons.more_vert,
+                          color: AppColors.highlight,
+                          size: 24.sp, // 49 → 24.sp로 조정
                         ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
           ),
           
-          // 메인 컨텐츠
+          // 메인 컨텐츠 (반응형으로 수정)
           SliverList(
             delegate: SliverChildListDelegate([
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 39),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 24.w), // 39 → 24.w로 조정
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 30),
+                    SizedBox(height: 20.h), // 30 → 20.h로 조정
                     
-                    // 검색창
+                    // 검색창 (반응형으로 수정)
                     Container(
-                      width: 996,
-                      height: 124,
+                      width: double.infinity, // 996 → 전체 너비로 변경
+                      height: 48.h, // 124 → 48.h로 조정
                       decoration: BoxDecoration(
                         color: AppColors.searchBackground,
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius:
+                            BorderRadius.circular(24.r), // 30 → 24.r로 조정
                       ),
                       child: Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 16.w), // 20 → 16.w로 조정
                             child: Icon(
                               Icons.search,
                               color: AppColors.border,
-                              size: 50,
+                              size: 20.sp, // 50 → 20.sp로 조정
                             ),
                           ),
                           Expanded(
                             child: TextField(
                               controller: _searchController,
-                              style: TextStyles.mainTitle,
+                              style: TextStyles
+                                  .taskTitle, // mainTitle → taskTitle로 변경
                               decoration: InputDecoration(
                                 hintText: '검색창',
-                                hintStyle: TextStyles.mainTitle,
+                                hintStyle: TextStyles
+                                    .taskTitle, // mainTitle → taskTitle로 변경
                                 border: InputBorder.none,
                               ),
                             ),
@@ -158,26 +159,27 @@ class _TagListPageState extends State<TagListPage> {
                       ),
                     ),
                     
-                    SizedBox(height: 40),
+                    SizedBox(height: 24.h), // 40 → 24.h로 조정
                     
-                    // 구분선
+                    // 구분선 (반응형으로 수정)
                     Container(
-                      width: 1100,
-                      height: 1,
+                      width: double.infinity, // 1100 → 전체 너비로 변경
+                      height: 1.h, // 1 → 1.h로 조정
                       color: AppColors.searchBackground,
                     ),
                     
-                    SizedBox(height: 30),
+                    SizedBox(height: 20.h), // 30 → 20.h로 조정
                     
                     // 태그 리스트 섹션
                     Text('태그 리스트', style: TextStyles.sectionTitle),
-                    SizedBox(height: 20),
+                    SizedBox(height: 16.h), // 20 → 16.h로 조정
                     
                     // 태그 목록
                     ...tags.map((tag) => _buildTagItem(tag)).toList(),
                     
                     Padding(
-                      padding: EdgeInsets.only(right: 20, top: 20),
+                      padding:
+                          EdgeInsets.only(right: 16.w, top: 16.h), // 반응형으로 수정
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: Text(
@@ -189,26 +191,27 @@ class _TagListPageState extends State<TagListPage> {
                       ),
                     ),
                     
-                    SizedBox(height: 40),
+                    SizedBox(height: 24.h), // 40 → 24.h로 조정
                     
-                    // 구분선
+                    // 구분선 (반응형으로 수정)
                     Container(
-                      width: 1100,
-                      height: 1,
+                      width: double.infinity, // 1100 → 전체 너비로 변경
+                      height: 1.h, // 1 → 1.h로 조정
                       color: AppColors.searchBackground,
                     ),
                     
-                    SizedBox(height: 30),
+                    SizedBox(height: 20.h), // 30 → 20.h로 조정
                     
                     // Daily Task 섹션
                     Text('Daily Task', style: TextStyles.sectionTitle),
-                    SizedBox(height: 20),
+                    SizedBox(height: 16.h), // 20 → 16.h로 조정
                     
                     // Daily Task 목록
                     ...dailyTasks.map((task) => _buildDailyTaskItem(task)).toList(),
                     
                     Padding(
-                      padding: EdgeInsets.only(right: 20, top: 20),
+                      padding:
+                          EdgeInsets.only(right: 16.w, top: 16.h), // 반응형으로 수정
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: Text(
@@ -220,7 +223,7 @@ class _TagListPageState extends State<TagListPage> {
                       ),
                     ),
                     
-                    SizedBox(height: 100), // 하단 여백
+                    SizedBox(height: 60.h), // 100 → 60.h로 조정 (하단 여백)
                   ],
                 ),
               ),
@@ -231,15 +234,15 @@ class _TagListPageState extends State<TagListPage> {
     );
   }
 
-  // 태그 아이템 위젯
+  // 태그 아이템 위젯 (반응형으로 수정)
   Widget _buildTagItem(Map<String, dynamic> tag) {
     return Container(
-      margin: EdgeInsets.only(bottom: 15),
+      margin: EdgeInsets.only(bottom: 12.h), // 15 → 12.h로 조정
       child: Row(
         children: [
           // 해시태그 심볼
           Text('#', style: TextStyles.subTitle),
-          SizedBox(width: 20),
+          SizedBox(width: 12.w), // 20 → 12.w로 조정
           
           // 태그 이름
           Expanded(
@@ -261,13 +264,13 @@ class _TagListPageState extends State<TagListPage> {
     );
   }
 
-  // Daily Task 아이템 위젯
+  // Daily Task 아이템 위젯 (반응형으로 수정)
   Widget _buildDailyTaskItem(Map<String, dynamic> task) {
     return Container(
-      margin: EdgeInsets.only(bottom: 15),
+      margin: EdgeInsets.only(bottom: 12.h), // 15 → 12.h로 조정
       child: Row(
         children: [
-          SizedBox(width: 36), // 해시태그 자리만큼 띄우기
+          SizedBox(width: 24.w), // 36 → 24.w로 조정 (해시태그 자리만큼 띄우기)
           
           // 태스크 이름
           Expanded(

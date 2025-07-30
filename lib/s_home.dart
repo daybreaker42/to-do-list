@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart'; // GoRouter import 추가
 
 // file imports
 import 'config/theme.dart';
-import 'widgets/w_task_widget.dart'; // TaskWidget import 추가
-import 'pages/tag_list_page.dart';
-import 'pages/task_detail_page.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -97,13 +95,8 @@ class _HomeState extends State<Home> {
                           padding: EdgeInsets.only(left: 24.w), // 48 → 24.w로 조정
                           child: GestureDetector(
                             onTap: () {
-                              // 태그 목록 페이지로 이동
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => TagListPage(),
-                                ),
-                              );
+                              // 태그 목록 페이지로 이동 (GoRouter 사용)
+                              context.go('/tags');
                             },
                             child: Icon(
                               Icons.arrow_back,
@@ -144,13 +137,8 @@ class _HomeState extends State<Home> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              // 태그 목록 페이지로 이동
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => TagListPage(),
-                                ),
-                              );
+                              // 태그 목록 페이지로 이동 (GoRouter 사용)
+                              context.go('/tags');
                             },
                             child: Text('태그 목록', style: TextStyles.subTitle),
                           ),
@@ -201,13 +189,8 @@ class _HomeState extends State<Home> {
   Widget _buildTaskItem(Map<String, dynamic> task) {
     return GestureDetector(
       onTap: () {
-        // 태스크 상세 페이지로 이동
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TaskDetailPage(taskData: task),
-          ),
-        );
+        // 태스크 상세 페이지로 이동 (GoRouter 사용)
+        context.go('/task-detail', extra: task);
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 16.h), // 20 → 16.h로 조정

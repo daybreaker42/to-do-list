@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // ScreenUtil 추가
 import 'package:intl/intl.dart';
 import 'package:timer_builder/timer_builder.dart';
 
 // files
 import 'package:to_do_list/config/theme.dart';
 
+// 새로운 디자인에서는 이 위젯이 필요하지 않지만, 
+// 기존 코드 호환성을 위해 최소한의 기능만 유지
 class InfoWidget extends StatefulWidget {
   const InfoWidget({super.key});
 
@@ -13,98 +16,45 @@ class InfoWidget extends StatefulWidget {
 }
 
 class _InfoWidgetState extends State<InfoWidget> {
-  var dateWidget;
-  var currTimeWidget;
-  var total_task_num;
-  var dday_dask_num;
   var weekDayList = ['월', '화', '수', '목', '금', '토', '일'];
-
-  void addTotal_task_num() {}
-
-  void updateTime() {
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // var dt = DateTime.now();
-    // date =
-    //     '${dt.year}년 ${dt.month}월 ${dt.day}일 ${weekDayList[dteekday - 1]}요일';
-    // currTime = '${dt.hour}:${dt.minute}';
-  }
 
   @override
   Widget build(BuildContext context) {
-    // 화면 크기에 따라 동적으로 스타일 조정
-    final size = MediaQuery.of(context).size;
-    final double horizontalPadding = size.width * 0.05; // 약 5% 패딩
-    final double verticalPadding = size.height * 0.02; // 약 2% 패딩
-    final double borderRadius = size.width * 0.04; // 약 4% radius
-    final double borderWidth = size.width * 0.003; // 약 0.3% border
-    final double titleFontSize = size.width * 0.045; // 날짜/시간 폰트
-    final double infoFontSize = size.width * 0.035; // tasks 폰트
-
+    // 새로운 디자인에서는 이 정보가 더 이상 필요하지 않으므로 
+    // 빈 컨테이너를 반환하거나 간단한 정보만 표시 (반응형으로 수정)
     return Container(
-      padding: EdgeInsets.symmetric(
-          vertical: verticalPadding * 2, horizontal: horizontalPadding),
+      padding: EdgeInsets.all(12.w), // 20 → 12.w로 조정
       decoration: BoxDecoration(
-        border: Border.all(color: Color(0xff0A0A0A), width: borderWidth),
-        borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-        color: Color(0xff181818), // 배경색 추가
+        color: AppColors.darkBackground,
+        borderRadius: BorderRadius.circular(12.r), // 20 → 12.r로 조정
       ),
-      margin: EdgeInsets.only(bottom: verticalPadding * 2), // 아래 마진 추가
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: double.infinity,
-            child: Column(children: [
-              TimerBuilder.periodic(Duration(minutes: 1), builder: (context) {
-                DateTime dt = DateTime.now();
-                dt = dt.add(Duration(hours: 9));
-                return Text(
-                  '${dt.year}년 ${dt.month}월 ${dt.day}일 ${weekDayList[dt.weekday - 1]}요일',
-                  style: TextStyle(
-                    fontFamily: 'pretendard',
-                    fontWeight: FontWeight.bold,
-                    fontSize: titleFontSize,
-                    color: Colors.white,
-                  ),
-                );
-              }),
-              TimerBuilder.periodic(Duration(minutes: 1), builder: (context) {
-                DateTime dt = DateTime.now();
-                dt = dt.add(Duration(hours: 9));
-                return Text(
-                  DateFormat('HH:mm').format(dt),
-                  style: TextStyle(
-                    fontFamily: 'pretendard',
-                    fontWeight: FontWeight.bold,
-                    fontSize: titleFontSize,
-                    color: Colors.white,
-                  ),
-                );
-              }),
-            ]),
+          TimerBuilder.periodic(Duration(minutes: 1), builder: (context) {
+            DateTime dt = DateTime.now();
+            return Text(
+              '${dt.year}년 ${dt.month}월 ${dt.day}일 ${weekDayList[dt.weekday - 1]}요일',
+              style: TextStyles.caption,
+            );
+          }),
+          SizedBox(height: 6.h), // 8 → 6.h로 조정
+          TimerBuilder.periodic(Duration(minutes: 1), builder: (context) {
+            DateTime dt = DateTime.now();
+            return Text(
+              DateFormat('HH:mm').format(dt),
+              style: TextStyles.caption,
+            );
+          }),
+          SizedBox(height: 12.h), // 16 → 12.h로 조정
+          Text(
+            'tasks : 3',
+            style: TextStyles.small,
           ),
-          SizedBox(height: verticalPadding),
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('tasks : 3',
-                style: TextStyle(
-                  fontFamily: 'pretendard',
-                  fontWeight: FontWeight.bold,
-                  fontSize: infoFontSize,
-                  color: Colors.white,
-                )),
-            Text('D-day tasks : 2',
-                style: TextStyle(
-                  fontFamily: 'pretendard',
-                  fontWeight: FontWeight.bold,
-                  fontSize: infoFontSize,
-                  color: Colors.white,
-                )),
-          ])
+          Text(
+            'D-day tasks : 2',
+            style: TextStyles.small,
+          ),
         ],
       ),
     );

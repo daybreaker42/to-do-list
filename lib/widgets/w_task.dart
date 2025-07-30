@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // ScreenUtil 추가
 import 'package:to_do_list/config/theme.dart';
 
+// 새로운 디자인에서는 홈 화면에서 직접 태스크를 렌더링하므로
+// 이 위젯은 호환성을 위해 유지하되 새로운 디자인 시스템 사용
 class Task extends StatefulWidget {
   final String title;
   final String content;
@@ -24,155 +27,96 @@ class Task extends StatefulWidget {
 }
 
 class _TaskState extends State<Task> {
-  String? _title;
   bool? _isFinished;
   bool? _isStarred;
   bool? _isDday;
-  dynamic task_status;
-
-  // task 위젯의 상태(isStarred, isDueDate)를 화면에 그려주는 함수
-  // TODO - 해당 메소드 provider을 이용해 상태관리 최적화 하기
-  void set_task_status() {
-    // 화면 크기에 따라 아이콘 크기 동적 조정
-    final size = MediaQuery.of(context).size;
-    final double starSize =
-        size.width * 0.015; // 별 아이콘 너비 (예: 3% of width, 더 작게)
-    final double ddaySize =
-        size.width * 0.035; // D-day 아이콘 너비 (예: 7% of width, 더 작게)
-    final double starDdayGap = size.height * 0.005; // 별-Dday 간격도 더 작게
-    final double topStar = size.height * 0.018;
-    final double rightStar = size.width * 0.03;
-    final double topDday = size.height * 0.04;
-    final double rightDday = size.width * 0.03;
-
-    if (_isStarred! && _isDday!) {
-      task_status = Positioned(
-        top: topStar,
-        right: rightStar,
-        child: Column(children: [
-          Image.asset(
-            'assets/images/starred.png',
-            width: starSize,
-          ),
-          SizedBox(height: starDdayGap),
-          Image.asset(
-            'assets/images/dday.png',
-            width: ddaySize,
-          ),
-        ]),
-      );
-    } else if (_isStarred!) {
-      task_status = Positioned(
-        top: topDday,
-        right: rightDday + starSize * 0.5,
-        child: Image.asset(
-          'assets/images/starred.png',
-          width: starSize,
-        ),
-      );
-    } else if (_isDday!) {
-      task_status = Positioned(
-        top: topDday,
-        right: rightDday,
-        child: Image.asset(
-          'assets/images/dday.png',
-          width: ddaySize,
-        ),
-      );
-    } else {
-      task_status = SizedBox();
-    }
-  }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
-    task_status = SizedBox();
-
-    _title = widget.title;
     _isFinished = widget.isFinished;
     _isStarred = widget.isStarred;
     _isDday = widget.isDueDate;
-    set_task_status();
   }
 
   @override
   Widget build(BuildContext context) {
-    // 화면 크기에 따라 동적으로 스타일 조정
-    final size = MediaQuery.of(context).size;
-    final double containerWidth = size.width * 0.9; // 전체 너비의 90%
-    final double containerHeight = size.height * 0.10; // 전체 높이의 10%
-    final double borderRadius = size.width * 0.04; // 약 4% radius
-    final double iconBtnWidth = size.width * 0.10; // 아이콘 버튼 너비
-    final double iconImgWidth = size.width * 0.03; // 아이콘 이미지 너비
-    final double textFontSize = size.width * 0.04; // 텍스트 폰트 크기
-    final double marginBottom = size.height * 0.015; // 아래 마진
-
-    return Column(children: [
-      SizedBox(height: marginBottom),
-      GestureDetector(
-        onDoubleTap: () {
-          setState(() {
-            _isStarred = !_isStarred!;
-            set_task_status();
-          });
-        },
-        child: Stack(
-          children: [
-            Container(
-              width: containerWidth,
-              height: containerHeight,
+    return Container(
+      margin: EdgeInsets.only(bottom: 12.h), // 20 → 12.h로 조정
+      padding: EdgeInsets.all(12.w), // 20 → 12.w로 조정
+      decoration: BoxDecoration(
+        color: AppColors.darkBackground,
+        borderRadius: BorderRadius.circular(12.r), // 20 → 12.r로 조정
+      ),
+      child: Row(
+        children: [
+          // 체크박스 (새로운 디자인 스타일, 반응형으로 수정)
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _isFinished = !_isFinished!;
+              });
+            },
+            child: Container(
+              width: 20.w, // 50 → 20.w로 조정
+              height: 20.w, // 50 → 20.w로 조정 (정사각형 유지)
               decoration: BoxDecoration(
-                color: Color(0xff0A0A0A),
-                borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: AppColors.highlight,
+                  width: 1.5.w, // 2 → 1.5.w로 조정
+                ),
+                color: _isFinished! ? AppColors.highlight : Colors.transparent,
               ),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: iconBtnWidth,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Image.asset(
-                        'assets/images/dots.png',
-                        width: iconImgWidth,
+              child: _isFinished!
+                  ? Icon(
+                      Icons.check,
+                      color: AppColors.background,
+                      size: 14.sp, // 25 → 14.sp로 조정
+                    )
+                  : Container(
+                      margin: EdgeInsets.all(2.w), // 4 → 2.w로 조정
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.background,
                       ),
                     ),
-                  ),
-                  SizedBox(width: iconBtnWidth * 0.2),
-                  SizedBox(
-                    width: iconBtnWidth,
-                    child: IconButton(
-                        padding: EdgeInsets.zero,
-                        onPressed: () {
-                          print('complete task');
-                        },
-                        icon: Image.asset(
-                            'assets/images/not_finished_circle.png',
-                            width: iconImgWidth * 1.2)),
-                  ),
-                  SizedBox(width: iconBtnWidth * 0.4),
-                  Expanded(
-                    child: Text(
-                      _title!,
-                      style: TextStyle(
-                        fontFamily: 'pretendard',
-                        fontSize: textFontSize,
-                        color: Colors.white,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
+            ),
+          ),
+          
+          SizedBox(width: 12.w), // 20 → 12.w로 조정
+
+          // 태스크 제목
+          Expanded(
+            child: Text(
+              widget.title,
+              style: TextStyles.taskTitle, // fontSize 60 제거하고 기본 스타일 사용
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          
+          // 상태 아이콘들 (반응형으로 수정)
+          if (_isStarred!)
+            Padding(
+              padding: EdgeInsets.only(left: 8.w), // 10 → 8.w로 조정
+              child: Icon(
+                Icons.star,
+                color: AppColors.warning,
+                size: 16.sp, // 20 → 16.sp로 조정
               ),
             ),
-
-            // star, dday 상태 보여줌 (별/디데이 이미지도 동적으로 조정 필요시 추가)
-            task_status!,
-          ],
-        ),
+          
+          if (_isDday!)
+            Padding(
+              padding: EdgeInsets.only(left: 6.w), // 8 → 6.w로 조정
+              child: Icon(
+                Icons.schedule,
+                color: AppColors.error,
+                size: 16.sp, // 20 → 16.sp로 조정
+              ),
+            ),
+        ],
       ),
-    ]);
+    );
   }
 }

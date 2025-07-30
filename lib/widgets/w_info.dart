@@ -36,41 +36,74 @@ class _InfoWidgetState extends State<InfoWidget> {
 
   @override
   Widget build(BuildContext context) {
+    // 화면 크기에 따라 동적으로 스타일 조정
+    final size = MediaQuery.of(context).size;
+    final double horizontalPadding = size.width * 0.05; // 약 5% 패딩
+    final double verticalPadding = size.height * 0.02; // 약 2% 패딩
+    final double borderRadius = size.width * 0.04; // 약 4% radius
+    final double borderWidth = size.width * 0.003; // 약 0.3% border
+    final double titleFontSize = size.width * 0.045; // 날짜/시간 폰트
+    final double infoFontSize = size.width * 0.035; // tasks 폰트
+
     return Container(
-      // height: 392,
-      padding: EdgeInsets.symmetric(vertical: 35, horizontal: 96),
+      padding: EdgeInsets.symmetric(
+          vertical: verticalPadding * 2, horizontal: horizontalPadding),
       decoration: BoxDecoration(
-        border: Border.all(color: Color(0xff0A0A0A), width: 2.0),
-        borderRadius: BorderRadius.all(Radius.circular(60)),
+        border: Border.all(color: Color(0xff0A0A0A), width: borderWidth),
+        borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+        color: Color(0xff181818), // 배경색 추가
       ),
+      margin: EdgeInsets.only(bottom: verticalPadding * 2), // 아래 마진 추가
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: double.infinity,
             child: Column(children: [
-              // Text(date, style: TextStyles.title2),
               TimerBuilder.periodic(Duration(minutes: 1), builder: (context) {
                 DateTime dt = DateTime.now();
-                // 시간 보정
                 dt = dt.add(Duration(hours: 9));
                 return Text(
-                    '${dt.year}년 ${dt.month}월 ${dt.day}일 ${weekDayList[dt.weekday - 1]}요일',
-                    style: TextStyles.title2);
+                  '${dt.year}년 ${dt.month}월 ${dt.day}일 ${weekDayList[dt.weekday - 1]}요일',
+                  style: TextStyle(
+                    fontFamily: 'pretendard',
+                    fontWeight: FontWeight.bold,
+                    fontSize: titleFontSize,
+                    color: Colors.white,
+                  ),
+                );
               }),
               TimerBuilder.periodic(Duration(minutes: 1), builder: (context) {
                 DateTime dt = DateTime.now();
-                // 시간 보정
                 dt = dt.add(Duration(hours: 9));
-                // return Text(DateFormat('HH:mm:ss').format(dt),
-                return Text(DateFormat('HH:mm').format(dt),
-                    style: TextStyles.title2);
+                return Text(
+                  DateFormat('HH:mm').format(dt),
+                  style: TextStyle(
+                    fontFamily: 'pretendard',
+                    fontWeight: FontWeight.bold,
+                    fontSize: titleFontSize,
+                    color: Colors.white,
+                  ),
+                );
               }),
             ]),
           ),
+          SizedBox(height: verticalPadding),
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('tasks : 3', style: TextStyles.title3),
-            Text('D-day tasks : 2', style: TextStyles.title3),
+            Text('tasks : 3',
+                style: TextStyle(
+                  fontFamily: 'pretendard',
+                  fontWeight: FontWeight.bold,
+                  fontSize: infoFontSize,
+                  color: Colors.white,
+                )),
+            Text('D-day tasks : 2',
+                style: TextStyle(
+                  fontFamily: 'pretendard',
+                  fontWeight: FontWeight.bold,
+                  fontSize: infoFontSize,
+                  color: Colors.white,
+                )),
           ])
         ],
       ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../s_home.dart';
-import '../pages/tag_list_page.dart';
-import '../pages/task_detail_page.dart';
+import 'package:to_do_list/s_home.dart';
+import 'package:to_do_list/pages/tag_list_page.dart';
+import 'package:to_do_list/pages/task_detail_page.dart';
+import 'package:to_do_list/pages/task_form_page.dart';
+import 'package:to_do_list/models/task_model.dart';
 
 /// GoRouter를 사용한 라우팅 설정
 /// 앱의 모든 네비게이션을 관리하는 중앙 집중식 라우터
@@ -47,7 +49,18 @@ class AppRouter {
         path: '/task-create',
         name: 'task-create',
         builder: (BuildContext context, GoRouterState state) {
-          return const TaskDetailPage(); // taskData 없이 호출하면 새 태스크 생성
+          return const TaskFormPage(); // 새 태스크 생성 폼
+        },
+      ),
+      
+      // 태스크 수정 페이지 라우트
+      GoRoute(
+        path: '/task-edit',
+        name: 'task-edit',
+        builder: (BuildContext context, GoRouterState state) {
+          final taskData = state.extra as Map<String, dynamic>?;
+          final task = taskData != null ? TaskModel.fromMap(taskData) : null;
+          return TaskFormPage(existingTask: task);
         },
       ),
     ],

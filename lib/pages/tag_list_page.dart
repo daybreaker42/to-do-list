@@ -87,7 +87,8 @@ class _TagListPageState extends State<TagListPage> {
                         // 뒤로가기 버튼 (반응형으로 수정)
                         GestureDetector(
                           onTap: () {
-                            context.go('/home'); // GoRouter 사용
+                            // context.push('/home'); // GoRouter 사용
+                            context.pop();
                           },
                           child: Icon(
                             Icons.keyboard_arrow_left,

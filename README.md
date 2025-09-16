@@ -13,3 +13,6 @@
 - 모바일, pc 크로스 플랫폼 가능
 - 반응형으로
 - 마우스 올리는 등 사용자 행동에 피드백
+
+## 개인정보처리방침
+- <https://priorty-todo.daybreaker42.com/privacy>

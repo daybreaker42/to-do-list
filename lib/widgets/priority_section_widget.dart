@@ -78,34 +78,35 @@ class PrioritySectionWidget extends StatelessWidget {
             ),
           ),
           
-          // 태스크 리스트
+          // 태스크 리스트 (모든 섹션에 DragTarget 적용)
           Expanded(
-            child: tasks.isEmpty
-                ? Center(
-                    child: Text(
-                      '할 일이 없습니다',
-                      style: TextStyles.caption.copyWith(
-                        color: AppColors.secondaryText,
-                      ),
-                    ),
-                  )
-                : DragTarget<TaskModel>(
-                    onWillAccept: (task) => task != null && task.priority != priority,
-                    onAccept: (task) {
-                      onTaskPriorityChanged(task, priority);
-                    },
-                    builder: (context, candidateData, rejectedData) {
-                      return Container(
-                        decoration: candidateData.isNotEmpty
-                            ? BoxDecoration(
-                                color: priority.color.withOpacity(0.1),
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(12.r),
-                                  bottomRight: Radius.circular(12.r),
-                                ),
-                              )
-                            : null,
-                        child: ListView.builder(
+            child: DragTarget<TaskModel>(
+              onWillAccept: (task) => task != null && task.priority != priority,
+              onAccept: (task) {
+                onTaskPriorityChanged(task, priority);
+              },
+              builder: (context, candidateData, rejectedData) {
+                return Container(
+                  decoration: candidateData.isNotEmpty
+                      ? BoxDecoration(
+                          color: priority.color.withOpacity(0.2),
+                          border: Border.all(color: priority.color, width: 2),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(12.r),
+                            bottomRight: Radius.circular(12.r),
+                          ),
+                        )
+                      : null,
+                  child: tasks.isEmpty
+                      ? Center(
+                          child: Text(
+                            '할 일이 없습니다',
+                            style: TextStyles.caption.copyWith(
+                              color: AppColors.secondaryText,
+                            ),
+                          ),
+                        )
+                      : ListView.builder(
                           padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                           itemCount: tasks.length,
                           itemBuilder: (context, index) {
@@ -113,8 +114,22 @@ class PrioritySectionWidget extends StatelessWidget {
                             return Draggable<TaskModel>(
                               data: task,
                               feedback: Material(
+                                elevation: 8,
+                                borderRadius: BorderRadius.circular(12.r),
                                 child: Container(
-                                  width: 150.w,
+                                  width: 160.w,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.surface,
+                                    borderRadius: BorderRadius.circular(12.r),
+                                    border: Border.all(color: priority.color, width: 2),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: priority.color.withOpacity(0.3),
+                                        blurRadius: 8,
+                                        spreadRadius: 2,
+                                      ),
+                                    ],
+                                  ),
                                   child: TaskCardWidget(
                                     task: task,
                                     onTap: () {},
@@ -124,13 +139,25 @@ class PrioritySectionWidget extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              childWhenDragging: Opacity(
-                                opacity: 0.5,
-                                child: TaskCardWidget(
-                                  task: task,
-                                  onTap: () => onTaskTap(task),
-                                  onComplete: () => onTaskComplete(task),
-                                  onDelete: () => onTaskDelete(task),
+                              childWhenDragging: Container(
+                                margin: EdgeInsets.only(bottom: 8.h),
+                                decoration: BoxDecoration(
+                                  color: AppColors.surface.withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  border: Border.all(
+                                    color: priority.color.withOpacity(0.3),
+                                    width: 2,
+                                    style: BorderStyle.solid,
+                                  ),
+                                ),
+                                child: Opacity(
+                                  opacity: 0.3,
+                                  child: TaskCardWidget(
+                                    task: task,
+                                    onTap: () => onTaskTap(task),
+                                    onComplete: () => onTaskComplete(task),
+                                    onDelete: () => onTaskDelete(task),
+                                  ),
                                 ),
                               ),
                               child: TaskCardWidget(
@@ -142,9 +169,9 @@ class PrioritySectionWidget extends StatelessWidget {
                             );
                           },
                         ),
-                      );
-                    },
-                  ),
+                );
+              },
+            ),
           ),
         ],
       ),

@@ -77,9 +77,12 @@ class _TaskFormPageState extends State<TaskFormPage> {
         ),
         actions: [
           if (isEditing)
-            IconButton(
-              icon: Icon(Icons.delete, color: AppColors.error),
+            TextButton(
               onPressed: _showDeleteDialog,
+              child: Text(
+                '삭제',
+                style: TextStyles.subTitle.copyWith(color: AppColors.error),
+              ),
             ),
         ],
       ),
@@ -293,9 +296,10 @@ class _TaskFormPageState extends State<TaskFormPage> {
                     )
                   : Text(
                       isEditing ? '수정 완료' : '할 일 추가',
-                      style: TextStyles.subTitle,
+                      style: TextStyles.subTitle.copyWith(color: Colors.white),
                     ),
             ),
+            SizedBox(height: 40.h),
           ],
         ),
       ),
@@ -435,16 +439,16 @@ class _TaskFormPageState extends State<TaskFormPage> {
         );
       }
 
-      // 성공 메시지 표시
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            widget.existingTask != null ? '할 일이 수정되었습니다' : '할 일이 추가되었습니다',
-            style: TextStyles.small.copyWith(color: Colors.white),
-          ),
-          backgroundColor: _selectedPriority.color,
-        ),
-      );
+       // 성공 메시지 표시
+       ScaffoldMessenger.of(context).showSnackBar(
+         SnackBar(
+           content: Text(
+             widget.existingTask != null ? '할 일이 수정되었습니다' : '할 일이 추가되었습니다',
+             style: TextStyles.small.copyWith(color: Colors.white),
+           ),
+           backgroundColor: AppColors.success,
+         ),
+       );
 
        // 홈 화면으로 돌아가기
        if (mounted) {
@@ -504,15 +508,15 @@ class _TaskFormPageState extends State<TaskFormPage> {
   void _deleteTask() {
     if (widget.existingTask != null) {
       _taskService.deleteTask(widget.existingTask!.id);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            '할 일이 삭제되었습니다',
-            style: TextStyles.small.copyWith(color: Colors.white),
-          ),
-          backgroundColor: AppColors.error,
-        ),
-      );
+       ScaffoldMessenger.of(context).showSnackBar(
+         SnackBar(
+           content: Text(
+             '할 일이 삭제되었습니다',
+             style: TextStyles.small.copyWith(color: Colors.white),
+           ),
+           backgroundColor: AppColors.success,
+         ),
+       );
       context.go('/home');
     }
   }

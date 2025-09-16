@@ -369,7 +369,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                     ),
                     label: Text(
                       task!.isCompleted ? '완료 취소' : '완료 처리',
-                      style: TextStyles.subTitle,
+                      style: TextStyles.subTitle.copyWith(color: Colors.white),
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: task!.isCompleted 
@@ -388,9 +388,9 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                   child: ElevatedButton.icon(
                     onPressed: _editTask,
                     icon: Icon(Icons.edit, size: 20.sp),
-                    label: Text('수정', style: TextStyles.subTitle),
+                    label: Text('수정', style: TextStyles.subTitle.copyWith(color: Colors.white)),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: task!.priority.color,
+                      backgroundColor: Colors.greenAccent,
                       foregroundColor: Colors.white,
                       padding: EdgeInsets.symmetric(vertical: 12.h),
                       shape: RoundedRectangleBorder(
@@ -460,7 +460,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
           task!.isCompleted ? '할 일이 완료되었습니다' : '할 일 완료가 취소되었습니다',
           style: TextStyles.small.copyWith(color: Colors.white),
         ),
-        backgroundColor: task!.isCompleted ? Colors.green : AppColors.secondaryText,
+        backgroundColor: AppColors.success,
       ),
     );
   }
@@ -478,7 +478,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
           task!.isPinned ? '할 일이 고정되었습니다' : '할 일 고정이 해제되었습니다',
           style: TextStyles.small.copyWith(color: Colors.white),
         ),
-        backgroundColor: task!.priority.color,
+        backgroundColor: AppColors.success,
       ),
     );
   }
@@ -541,7 +541,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
           '할 일이 삭제되었습니다',
           style: TextStyles.small.copyWith(color: Colors.white),
         ),
-        backgroundColor: AppColors.error,
+        backgroundColor: AppColors.success,
       ),
        );
        if (mounted) {

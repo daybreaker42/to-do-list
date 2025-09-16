@@ -11,6 +11,7 @@ class AppColors {
   static const Color grayText = Color(0xFF8E8E8E); // 회색 글씨색
   static const Color lightGrayText = Color(0xFF9D9D9D); // 연한 회색 글씨색
   static const Color highlight = Color(0xFF1381FE); // 하이라이트 색상
+  static const Color success = Color(0xFF4CAF50); // 성공색 (초록)
   static const Color warning = Color(0xFFF1FF9D); // 경고색
   static const Color error = Color(0xFFFB382D); // 에러색
   static const Color accent = Color(0xFF1F1F1F); // 액센트 배경색

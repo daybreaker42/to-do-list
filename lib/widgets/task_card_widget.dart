@@ -71,11 +71,23 @@ class TaskCardWidget extends StatelessWidget {
             padding: EdgeInsets.all(12.w),
             decoration: BoxDecoration(
               color: isBeingDragged 
-                  ? AppColors.surface.withOpacity(0.8)
+                  ? AppColors.surface.withOpacity(0.9)
                   : AppColors.darkBackground,
               borderRadius: BorderRadius.circular(8.r),
-              border: task.isPinned
-                  ? Border.all(color: task.priority.color, width: 1)
+              border: isBeingDragged
+                  ? Border.all(color: task.priority.color, width: 2)
+                  : task.isPinned
+                      ? Border.all(color: task.priority.color, width: 1)
+                      : null,
+              boxShadow: isBeingDragged
+                  ? [
+                      BoxShadow(
+                        color: task.priority.color.withOpacity(0.4),
+                        blurRadius: 8,
+                        spreadRadius: 1,
+                        offset: Offset(0, 2),
+                      ),
+                    ]
                   : null,
             ),
             child: Row(

@@ -97,13 +97,9 @@ class TaskService {
   bool changeTaskPriority(String id, TaskPriority newPriority) {
     final task = getTaskById(id);
     if (task != null) {
-      print('Changing task priority: ${task.title} from ${task.priority.displayName} to ${newPriority.displayName}');
       final updatedTask = task.copyWith(priority: newPriority);
-      final success = updateTask(updatedTask);
-      print('Priority change success: $success');
-      return success;
+      return updateTask(updatedTask);
     }
-    print('Task not found for priority change: $id');
     return false;
   }
 

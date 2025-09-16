@@ -200,7 +200,7 @@ class _HomeState extends State<Home> {
 
   /// 태스크 탭 처리
   void _onTaskTap(TaskModel task) {
-    context.go('/task-detail', extra: task.toMap());
+    context.push('/task-detail', extra: task.toMap());
   }
 
   /// 태스크 완료 처리
@@ -228,7 +228,18 @@ class _HomeState extends State<Home> {
               '${task.title}이(가) ${newPriority.displayName} 섹션으로 이동되었습니다',
               style: TextStyles.small.copyWith(color: Colors.white),
             ),
-            backgroundColor: newPriority.color,
+            backgroundColor: AppColors.success,
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              '할 일 이동에 실패했습니다',
+              style: TextStyles.small.copyWith(color: Colors.white),
+            ),
+            backgroundColor: AppColors.error,
             duration: const Duration(seconds: 2),
           ),
         );

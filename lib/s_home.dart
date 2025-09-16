@@ -59,25 +59,6 @@ class _HomeState extends State<Home> {
             itemBuilder: (context) {
               final allTags = _taskService.getAllTags();
               return [
-                PopupMenuItem<String>(
-                  value: null,
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.clear,
-                        color: AppColors.secondaryText,
-                        size: 16.sp,
-                      ),
-                      SizedBox(width: 8.w),
-                      Text(
-                        '전체 보기',
-                        style: TextStyles.small.copyWith(
-                          color: AppColors.primaryText,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
                 ...allTags.map((tag) => PopupMenuItem<String>(
                   value: tag,
                   child: Row(

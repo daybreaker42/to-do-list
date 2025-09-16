@@ -57,70 +57,21 @@ class _TagListPageState extends State<TagListPage> {
     
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: CustomScrollView(
-        slivers: [
-          // 헤더 (AppBar로 통합, 반응형으로 수정)
-          SliverAppBar(
-            expandedHeight: 180.h, // 220 → 180.h로 조정
-            floating: false,
-            pinned: true,
-            backgroundColor: AppColors.background,
-            automaticallyImplyLeading: false, // 기본 뒤로가기 버튼 제거
-            flexibleSpace: FlexibleSpaceBar(
-              background: Container(
-                decoration: BoxDecoration(
-                  color: AppColors.background,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.25),
-                      blurRadius: 4.r, // 반응형으로 수정
-                      offset: Offset(0, 4.h), // 반응형으로 수정
-                    ),
-                  ],
-                ),
-                child: SafeArea(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24.w), // 반응형 패딩
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // 뒤로가기 버튼 (반응형으로 수정)
-                        GestureDetector(
-                          onTap: () {
-                            // context.push('/home'); // GoRouter 사용
-                            context.pop();
-                          },
-                          child: Icon(
-                            Icons.keyboard_arrow_left,
-                            color: AppColors.highlight,
-                            size: 24.sp, // 16 → 24.sp로 조정
-                          ),
-                        ),
-                        // 메인 타이틀
-                        Text('태그 목록', style: TextStyles.mainTitle),
-                        // 더보기 버튼 (반응형으로 수정)
-                        Icon(
-                          Icons.more_vert,
-                          color: AppColors.highlight,
-                          size: 24.sp, // 49 → 24.sp로 조정
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          
-          // 메인 컨텐츠 (반응형으로 수정)
-          SliverList(
-            delegate: SliverChildListDelegate([
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 24.w), // 39 → 24.w로 조정
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+      appBar: AppBar(
+        backgroundColor: AppColors.background,
+        elevation: 0,
+        title: Text('태그 관리', style: TextStyles.mainTitle),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: AppColors.highlight),
+          onPressed: () => context.pop(),
+        ),
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(8.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
                     SizedBox(height: 20.h), // 30 → 20.h로 조정
                     
                     // 검색창 (반응형으로 수정)
@@ -224,13 +175,9 @@ class _TagListPageState extends State<TagListPage> {
                       ),
                     ),
                     
-                    SizedBox(height: 60.h), // 100 → 60.h로 조정 (하단 여백)
-                  ],
-                ),
-              ),
-            ]),
-          ),
-        ],
+            SizedBox(height: 60.h), // 하단 여백
+          ],
+        ),
       ),
     );
   }

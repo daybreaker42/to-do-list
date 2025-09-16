@@ -57,6 +57,8 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
         appBar: AppBar(
           backgroundColor: AppColors.background,
           elevation: 0,
+          title: Text('할 일을 찾을 수 없음', style: TextStyles.mainTitle),
+          centerTitle: true,
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: AppColors.highlight),
             onPressed: () => context.pop(),
@@ -87,13 +89,11 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
       appBar: AppBar(
         backgroundColor: AppColors.background,
         elevation: 0,
+        title: Text('할 일 상세', style: TextStyles.mainTitle),
+        centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: AppColors.highlight),
           onPressed: () => context.pop(),
-        ),
-        title: Text(
-          '할 일 상세',
-          style: TextStyles.sectionTitle,
         ),
         actions: [
           IconButton(
@@ -139,7 +139,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.w),
+        padding: EdgeInsets.all(8.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

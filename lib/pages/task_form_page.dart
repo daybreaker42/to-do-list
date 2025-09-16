@@ -68,10 +68,11 @@ class _TaskFormPageState extends State<TaskFormPage> {
         elevation: 0,
         title: Text(
           isEditing ? '할 일 수정' : '새 할 일',
-          style: TextStyles.sectionTitle,
+          style: TextStyles.mainTitle,
         ),
+        centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.close, color: AppColors.secondaryText),
+          icon: Icon(Icons.arrow_back, color: AppColors.highlight),
           onPressed: () => context.pop(),
         ),
         actions: [
@@ -85,7 +86,7 @@ class _TaskFormPageState extends State<TaskFormPage> {
       body: Form(
         key: _formKey,
         child: ListView(
-          padding: EdgeInsets.all(16.w),
+          padding: EdgeInsets.all(8.w),
           children: [
             // 제목 입력
             _buildSectionTitle('제목'),
